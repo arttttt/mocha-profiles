@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import com.android.artt.mochaprofiles.profiles.ProfilesManager
+import com.android.artt.mochaprofiles.undervolting.UndervoltManager
 import com.android.artt.mochaprofiles.utils.SU
 
 class ProfilesBootReceiver : BroadcastReceiver() {
@@ -22,6 +23,9 @@ class ProfilesBootReceiver : BroadcastReceiver() {
         if (isValidKernel()) {
             with (ProfilesManager(context)) {
                 applyProfile(getSavedProfile())
+            }
+            with(UndervoltManager(context)) {
+                enableUndervolting(isUndervoltingEnabled())
             }
         } else {
             showToast(context, R.string.invalid_kernel)
