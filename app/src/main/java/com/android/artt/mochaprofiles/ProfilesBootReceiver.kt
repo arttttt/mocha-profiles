@@ -20,7 +20,7 @@ class ProfilesBootReceiver : BroadcastReceiver() {
             return
         }
         if (isValidKernel()) {
-            ProfilesManager(context).apply {
+            with (ProfilesManager(context)) {
                 applyProfile(getSavedProfile())
             }
         } else {
@@ -34,7 +34,6 @@ class ProfilesBootReceiver : BroadcastReceiver() {
         Toast.makeText(context, stringResourceId, Toast.LENGTH_LONG).show()
     }
 
-    private fun isValidKernel(): Boolean {
-        return SU.instance.readFile(KERNEL_VERSION_PATH).contains(VALID_KERNEL_NAME, true)
-    }
+    private fun isValidKernel(): Boolean =
+            SU.instance.readFile(KERNEL_VERSION_PATH).contains(VALID_KERNEL_NAME, true)
 }
