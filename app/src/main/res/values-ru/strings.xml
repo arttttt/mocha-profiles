@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Производительность</string>
+    <string name="failed_text">Невозможно применить профиль</string>
+    <string name="invalid_kernel">Неподдерживаемое ядро</string>
+    <string name="no_root">Отсутствует root</string>
+    <string name="empty_activity_text">Пустое активити для тестов</string>
+    <string name="low_profile_text">Сберегающий</string>
+    <string name="middle_profile_text">Обычный</string>
+    <string name="high_profile_text">Игровой</string>
+    <string name="profiles_tile_def_label">Профили</string>
+    <string name="undervolting_tile_label">underv</string>
+</resources>

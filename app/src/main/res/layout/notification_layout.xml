@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:paddingStart="5dp"
+              android:paddingEnd="5dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_notification_icon"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_notification_profile_low"
+            android:background="@android:color/transparent"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:id="@+id/notificationButtonLow"/>
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_notification_profile_middle"
+            android:background="@android:color/transparent"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:id="@+id/notificationButtonMiddle"/>
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_notification_profile_high"
+            android:background="@android:color/transparent"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:id="@+id/notificationButtonHigh"/>
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_notification_profile_video"
+            android:background="@android:color/transparent"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:id="@+id/notificationButtonVideo"/>
+
+    </LinearLayout>
+
+</LinearLayout>

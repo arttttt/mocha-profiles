@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MochaProfiles</string>
+    <string name="failed_text">Can\'t apply profile</string>
+    <string name="invalid_kernel">Unsupported kernel</string>
+    <string name="no_root">No root found</string>
+    <string name="empty_activity_text">Empty activity for tests</string>
+    <string name="low_profile_text">Energysaving</string>
+    <string name="middle_profile_text">General</string>
+    <string name="high_profile_text">Gaming</string>
+    <string name="profiles_tile_def_label">Profiles</string>
+    <string name="undervolting_tile_label">Undervolting</string>
+</resources>
