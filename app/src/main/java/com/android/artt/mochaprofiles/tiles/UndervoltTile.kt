@@ -34,10 +34,7 @@ class UndervoltTile : TileService() {
 
     private fun setTileStatus() {
         with (qsTile) {
-            state = when (mUndervoltManager.isUndervoltingEnabled()) {
-                true -> Tile.STATE_ACTIVE
-                else -> Tile.STATE_INACTIVE
-            }
+            state = if (mUndervoltManager.isUndervoltingEnabled()) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
             this.updateTile()
         }
     }

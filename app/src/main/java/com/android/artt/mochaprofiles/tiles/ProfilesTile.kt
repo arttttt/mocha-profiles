@@ -1,6 +1,8 @@
 package com.android.artt.mochaprofiles.tiles
 
+import android.content.Intent
 import android.graphics.drawable.Icon
+import android.os.IBinder
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import android.util.Log
@@ -18,16 +20,6 @@ class ProfilesTile : TileService() {
     private val mLabelsMap by lazy { mapOf(ProfilesManager.LOW_PROFILE to getString(R.string.low_profile_text),
             ProfilesManager.MIDDLE_PROFILE to getString(R.string.middle_profile_text),
             ProfilesManager.HIGH_PROFILE to getString(R.string.high_profile_text)) }
-
-    override fun onCreate() {
-        super.onCreate()
-        printDebugMessage("onCreate")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        printDebugMessage("onDestroy")
-    }
 
     override fun onTileAdded() {
         super.onTileAdded()
@@ -64,6 +56,6 @@ class ProfilesTile : TileService() {
     }
 
     private fun printDebugMessage(msg: String) {
-        Log.d(TAG, msg);
+        Log.d(TAG, msg)
     }
 }
