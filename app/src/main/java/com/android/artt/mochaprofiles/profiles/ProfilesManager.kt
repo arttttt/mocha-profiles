@@ -1,37 +1,41 @@
 package com.android.artt.mochaprofiles.profiles
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import com.android.artt.mochaprofiles.base.ManagerBase
 import com.android.artt.mochaprofiles.utils.SU
 
-class ProfilesManager(context: Context) {
+class ProfilesManager(context: Context) : ManagerBase(context) {
     companion object {
-        val LOW_PROFILE: String = "low"
-        val MIDDLE_PROFILE: String = "middle"
-        val HIGH_PROFILE: String = "high"
-        val VIDEO_PROFILE: String = "video"
-        val SUSPEND_PROFILE: String = "suspend"
+        val LOW_PROFILE
+            get() = "low"
+        val MIDDLE_PROFILE
+            get() = "middle"
+        val HIGH_PROFILE
+            get() = "high"
+        val VIDEO_PROFILE
+            get() = "video"
+        val SUSPEND_PROFILE
+            get() = "suspend"
         val DEFAULT_PROFILE: String
             get() = MIDDLE_PROFILE
     }
 
-    val TAG = "MochaProfiles"
+    val TAG
+        get() = "MochaProfiles"
 
-    val PREFERENCES = "profiles_preferences"
-    val PROFILE_KEY = "profile"
+    override val PREFERENCES: String
+        get() = "profiles_preferences"
+    val PROFILE_KEY
+        get() = "profile"
 
-    private val mSharedPreferences: SharedPreferences
-    private val mProfilesMap: Map<String, ProfileBase>
-
-    init {
-        mSharedPreferences = context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
-        mProfilesMap = mapOf(LOW_PROFILE to ProfileLow(),
-                MIDDLE_PROFILE to ProfileMiddle(),
-                HIGH_PROFILE to ProfileHigh(),
-                VIDEO_PROFILE to ProfileVideo(),
-                SUSPEND_PROFILE to ProfileSuspend())
-    }
+    private val mProfilesMap by lazy { mapOf(LOW_PROFILE to ProfileLow(),
+            MIDDLE_PROFILE to ProfileMiddle(),
+            HIGH_PROFILE to ProfileHigh(),
+            VIDEO_PROFILE to ProfileVideo(),
+            SUSPEND_PROFILE to ProfileSuspend()) }
 
     private fun setProfile(profile: String): Boolean {
         var result = false
@@ -63,12 +67,14 @@ class ProfilesManager(context: Context) {
 
     fun getSavedProfile(): String = mSharedPreferences.getString(PROFILE_KEY, DEFAULT_PROFILE)
 
+    @SuppressLint("CommitPrefEdits")
     fun applyProfile(profile: String, save: Boolean = false): Boolean {
         Log.d(TAG, "applied profile: $profile")
         if (save) {
-            val edit = mSharedPreferences.edit()
-            edit.putString(PROFILE_KEY, profile)
-            edit.apply()
+            with(mSharedPreferences.edit()) {
+                putString(PROFILE_KEY, profile)
+                apply()
+            }
         }
         return setProfile(profile)
     }
