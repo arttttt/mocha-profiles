@@ -61,9 +61,7 @@ class ProfilesManager(context: Context) {
         return result
     }
 
-    fun getSavedProfile(): String {
-        return mSharedPreferences.getString(PROFILE_KEY, DEFAULT_PROFILE)
-    }
+    fun getSavedProfile(): String = mSharedPreferences.getString(PROFILE_KEY, DEFAULT_PROFILE)
 
     fun applyProfile(profile: String, save: Boolean = false): Boolean {
         Log.d(TAG, "applied profile: $profile")
