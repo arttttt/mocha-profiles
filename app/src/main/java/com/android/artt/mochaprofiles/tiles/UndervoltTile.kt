@@ -15,47 +15,49 @@ class UndervoltTile : TileService() {
         super.onTileAdded()
         printDebugMessage("onTileAdded und")
 
-        val tile = qsTile
-
-        tile.state = when (mUndervoltManager.isUndervoltingEnabled()) {
-            true -> Tile.STATE_ACTIVE
-            else -> Tile.STATE_INACTIVE
-        }
-        tile.updateTile()
+        setTileStatus()
     }
 
     override fun onStartListening() {
         super.onStartListening()
         printDebugMessage("onStartListening und")
 
-        val tile = qsTile
-
-        tile.state = when (mUndervoltManager.isUndervoltingEnabled()) {
-            true -> Tile.STATE_ACTIVE
-            else -> Tile.STATE_INACTIVE
-        }
-        tile.updateTile()
+        setTileStatus()
     }
 
     override fun onClick() {
         super.onClick()
         printDebugMessage("onClick und")
 
-        val tile = qsTile
+        updateTile()
+    }
 
-        when (tile.state) {
-            Tile.STATE_ACTIVE -> {
-                mUndervoltManager.enableUndervolting(false)
-                tile.icon = Icon.createWithResource(this, R.drawable.ic_undervolting_tile_off)
-                tile.state = Tile.STATE_INACTIVE
+    private fun setTileStatus() {
+        with (qsTile) {
+            state = when (mUndervoltManager.isUndervoltingEnabled()) {
+                true -> Tile.STATE_ACTIVE
+                else -> Tile.STATE_INACTIVE
             }
-            Tile.STATE_INACTIVE -> {
-                mUndervoltManager.enableUndervolting((true))
-                tile.icon = Icon.createWithResource(this, R.drawable.ic_undervolting_tile_on)
-                tile.state = Tile.STATE_ACTIVE
-            }
+            this.updateTile()
         }
-        tile.updateTile()
+    }
+
+    private fun updateTile() {
+        with (qsTile) {
+            when (state) {
+                Tile.STATE_ACTIVE -> {
+                    mUndervoltManager.enableUndervolting(false)
+                    icon = Icon.createWithResource(this@UndervoltTile, R.drawable.ic_undervolting_tile_off)
+                    state = Tile.STATE_INACTIVE
+                }
+                Tile.STATE_INACTIVE -> {
+                    mUndervoltManager.enableUndervolting((true))
+                    icon = Icon.createWithResource(this@UndervoltTile, R.drawable.ic_undervolting_tile_on)
+                    state = Tile.STATE_ACTIVE
+                }
+            }
+            this.updateTile()
+        }
     }
 
     private fun printDebugMessage(message: String) {

@@ -1,5 +1,6 @@
 package com.android.artt.mochaprofiles.undervolting
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
@@ -11,8 +12,8 @@ class UndervoltManager(context: Context) {
     private val CPU_PATH = "/sys/kernel/debug/clock/vdd_core_offs"
     private val GPU_PATH = "/sys/kernel/debug/clock/vdd_gpu_offs"
 
-    private val cpuTestValue = -80
-    private val gpuTestValue = -45
+    private val reduceCpuVoltageValue = -80
+    private val reduceGpuVoltageValue = -45
 
     val PREFERENCES = "undervolt_preferences"
     val UNDERVOLT_KEY = "enabled"
@@ -23,26 +24,33 @@ class UndervoltManager(context: Context) {
         mSharedPreferences = context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
     }
 
+    @SuppressLint("CommitPrefEdits")
     fun enableUndervolting(enabled: Boolean) {
         if (SU.instance.getSuAccess() && SU.instance.rootAccess()) {
             with(mSharedPreferences.edit()) {
                 putBoolean(UNDERVOLT_KEY, enabled)
                 apply()
             }
-            Log.d(TAG, "cpu und: $cpuTestValue gpu und: $gpuTestValue enabled: $enabled")
-            if (enabled) {
-                SU.instance.writeFile(CPU_PATH, cpuTestValue)
-                SU.instance.writeFile(GPU_PATH, gpuTestValue)
+
+            val cpuVoltageDeviation = when (enabled) {
+                true -> reduceCpuVoltageValue
+                else -> 0
             }
-            else {
-                SU.instance.writeFile(CPU_PATH, 0)
-                SU.instance.writeFile(GPU_PATH, 0)
+            val gpuVoltageDeviation = when (enabled) {
+                true -> reduceGpuVoltageValue
+                else -> 0
             }
-            SU.instance.close()
+
+            Log.d(TAG, "cpu und: $cpuVoltageDeviation gpu und: $gpuVoltageDeviation enabled: $enabled")
+
+            with(SU.instance) {
+                writeFile(CPU_PATH, cpuVoltageDeviation)
+                writeFile(GPU_PATH, gpuVoltageDeviation)
+
+                close()
+            }
         }
     }
 
-    fun isUndervoltingEnabled(): Boolean {
-        return mSharedPreferences.getBoolean(UNDERVOLT_KEY, false)
-    }
+    fun isUndervoltingEnabled(): Boolean = mSharedPreferences.getBoolean(UNDERVOLT_KEY, false)
 }
