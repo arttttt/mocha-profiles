@@ -1,8 +1,6 @@
 package com.android.artt.mochaprofiles.tiles
 
-import android.content.Intent
 import android.graphics.drawable.Icon
-import android.os.IBinder
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import android.util.Log

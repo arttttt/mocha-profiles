@@ -1,10 +1,8 @@
 package com.android.artt.mochaprofiles.tiles
 
-import android.graphics.drawable.Icon
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import android.util.Log
-import com.android.artt.mochaprofiles.R
 import com.android.artt.mochaprofiles.undervolting.UndervoltManager
 
 class UndervoltTile : TileService() {
