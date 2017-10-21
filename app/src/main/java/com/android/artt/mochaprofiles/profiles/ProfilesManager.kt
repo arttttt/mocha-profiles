@@ -59,6 +59,7 @@ class ProfilesManager(context: Context) : ManagerBase(context) {
                 }
 
                 result = true
+                Log.d(TAG, "applied profile: $profile")
             }
             SU.instance.close()
         }
@@ -68,14 +69,15 @@ class ProfilesManager(context: Context) : ManagerBase(context) {
     fun getSavedProfile(): String = mSharedPreferences.getString(PROFILE_KEY, DEFAULT_PROFILE)
 
     @SuppressLint("CommitPrefEdits")
-    fun applyProfile(profile: String, save: Boolean = false): Boolean {
-        Log.d(TAG, "applied profile: $profile")
+    fun applyProfile(profile: String, save: Boolean = false) {
+        if (!setProfile(profile))
+            return
+
         if (save) {
             with(mSharedPreferences.edit()) {
                 putString(PROFILE_KEY, profile)
                 apply()
             }
         }
-        return setProfile(profile)
     }
 }
