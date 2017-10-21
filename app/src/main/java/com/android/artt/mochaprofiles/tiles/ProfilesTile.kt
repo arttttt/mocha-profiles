@@ -43,7 +43,6 @@ class ProfilesTile : TileService() {
         with(qsTile) {
             icon = mIconsMap[profile]
             label = mLabelsMap[profile]
-            state = Tile.STATE_ACTIVE
             updateTile()
         }
     }
