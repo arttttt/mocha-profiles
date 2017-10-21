@@ -34,17 +34,16 @@ class UndervoltTile : TileService() {
 
     private fun updateTile() {
         with (qsTile) {
-            when (state) {
+            state = when (state) {
                 Tile.STATE_ACTIVE -> {
                     mUndervoltManager.enableUndervolting(false)
-                    icon = Icon.createWithResource(this@UndervoltTile, R.drawable.ic_undervolting_tile_off)
-                    state = Tile.STATE_INACTIVE
+                    Tile.STATE_INACTIVE
                 }
                 Tile.STATE_INACTIVE -> {
                     mUndervoltManager.enableUndervolting((true))
-                    icon = Icon.createWithResource(this@UndervoltTile, R.drawable.ic_undervolting_tile_on)
-                    state = Tile.STATE_ACTIVE
+                    Tile.STATE_ACTIVE
                 }
+                else -> Tile.STATE_UNAVAILABLE
             }
             this.updateTile()
         }
