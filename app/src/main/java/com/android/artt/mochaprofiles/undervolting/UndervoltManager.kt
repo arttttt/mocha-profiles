@@ -37,7 +37,7 @@ class UndervoltManager(context: Context) : ManagerBase(context) {
             val cpuVoltageDeviation = if (enabled) reduceCpuVoltageValue else 0
             val gpuVoltageDeviation = if (enabled) reduceGpuVoltageValue else 0
 
-            Log.d(TAG, "cpu und: $cpuVoltageDeviation gpu und: $gpuVoltageDeviation enabled: $enabled")
+            Log.d(TAG, "Undervoltage: enabled: $enabled\n cpu: $cpuVoltageDeviation mv\n gpu: $gpuVoltageDeviation mv")
 
             with(SU.instance) {
                 writeFile(CPU_PATH, cpuVoltageDeviation)
