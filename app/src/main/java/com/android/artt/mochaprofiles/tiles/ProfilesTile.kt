@@ -29,6 +29,13 @@ class ProfilesTile : TileService() {
     override fun onClick() {
         super.onClick()
         printDebugMessage("onClick")
+
+        /* Disable the tile while profile is applying */
+        with(qsTile) {
+            state = Tile.STATE_UNAVAILABLE
+            updateTile()
+        }
+
         val profile = when (mProfileManager.getSavedProfile()) {
             ProfilesManager.LOW_PROFILE -> ProfilesManager.MIDDLE_PROFILE
             ProfilesManager.MIDDLE_PROFILE -> ProfilesManager.HIGH_PROFILE
@@ -43,6 +50,8 @@ class ProfilesTile : TileService() {
         with(qsTile) {
             icon = mIconsMap[profile]
             label = mLabelsMap[profile]
+            /* Restore the tile state */
+            state = Tile.STATE_ACTIVE
             updateTile()
         }
     }
