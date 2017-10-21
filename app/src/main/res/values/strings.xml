@@ -8,5 +8,5 @@
     <string name="middle_profile_text">General</string>
     <string name="high_profile_text">Gaming</string>
     <string name="profiles_tile_def_label">Profiles</string>
-    <string name="undervolting_tile_label">Undervolting</string>
+    <string name="undervoltage_tile_label">Undervoltage</string>
 </resources>
