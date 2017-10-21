@@ -5,11 +5,11 @@ import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import android.util.Log
 import com.android.artt.mochaprofiles.R
-import com.android.artt.mochaprofiles.undervolting.UndervoltManager
+import com.android.artt.mochaprofiles.undervoltage.UndervoltageManager
 
 class UndervoltageTile : TileService() {
     val TAG = "MochaProfiles"
-    private val mUndervoltManager by lazy { UndervoltManager(this) }
+    private val mUndervoltManager by lazy { UndervoltageManager(this) }
     private val mTileParams by lazy { mapOf(Tile.STATE_ACTIVE to Pair(Tile.STATE_INACTIVE, false),
             Tile.STATE_INACTIVE to Pair(Tile.STATE_ACTIVE, true)) }
     private val mTileIcon by lazy { Icon.createWithResource(this, R.drawable.ic_undervolting_tile) }

@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import com.android.artt.mochaprofiles.profiles.ProfilesManager
-import com.android.artt.mochaprofiles.undervolting.UndervoltManager
+import com.android.artt.mochaprofiles.undervoltage.UndervoltageManager
 import com.android.artt.mochaprofiles.utils.SU
 
 class ProfilesBootReceiver : BroadcastReceiver() {
@@ -24,7 +24,7 @@ class ProfilesBootReceiver : BroadcastReceiver() {
             with (ProfilesManager(context)) {
                 applyProfile(getSavedProfile())
             }
-            with(UndervoltManager(context)) {
+            with(UndervoltageManager(context)) {
                 enableUndervolting(isUndervoltingEnabled())
             }
         } else {
