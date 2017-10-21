@@ -16,14 +16,14 @@ class UndervoltageTile : TileService() {
 
     override fun onStartListening() {
         super.onStartListening()
-        printDebugMessage("onStartListening und")
+        printDebugMessage("onStartListening undervoltage")
 
         setTileStatus()
     }
 
     override fun onClick() {
         super.onClick()
-        printDebugMessage("onClick und")
+        printDebugMessage("onClick undervoltage")
 
         updateTile()
     }
