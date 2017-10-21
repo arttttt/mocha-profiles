@@ -24,7 +24,7 @@
                 android:value="true" />
         </service>
 
-        <service android:name=".tiles.UndervoltTile"
+        <service android:name=".tiles.UndervoltageTile"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
             android:label="@string/undervolting_tile_label"
             android:icon="@drawable/ic_undervolting_tile">

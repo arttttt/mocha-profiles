@@ -1,13 +1,18 @@
 package com.android.artt.mochaprofiles.tiles
 
+import android.graphics.drawable.Icon
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import android.util.Log
+import com.android.artt.mochaprofiles.R
 import com.android.artt.mochaprofiles.undervolting.UndervoltManager
 
-class UndervoltTile : TileService() {
+class UndervoltageTile : TileService() {
     val TAG = "MochaProfiles"
     private val mUndervoltManager by lazy { UndervoltManager(this) }
+    private val mTileParams by lazy { mapOf(Tile.STATE_ACTIVE to Pair(Tile.STATE_INACTIVE, false),
+            Tile.STATE_INACTIVE to Pair(Tile.STATE_ACTIVE, true)) }
+    private val mTileIcon by lazy { Icon.createWithResource(this, R.drawable.ic_undervolting_tile) }
 
     override fun onStartListening() {
         super.onStartListening()
@@ -32,16 +37,10 @@ class UndervoltTile : TileService() {
 
     private fun updateTile() {
         with (qsTile) {
-            state = when (state) {
-                Tile.STATE_ACTIVE -> {
-                    mUndervoltManager.enableUndervolting(false)
-                    Tile.STATE_INACTIVE
-                }
-                Tile.STATE_INACTIVE -> {
-                    mUndervoltManager.enableUndervolting((true))
-                    Tile.STATE_ACTIVE
-                }
-                else -> Tile.STATE_UNAVAILABLE
+            icon = mTileIcon
+            mTileParams[state]?.let {
+                state = it.first
+                mUndervoltManager.enableUndervolting(it.second)
             }
             this.updateTile()
         }
