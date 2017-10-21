@@ -1,12 +1,18 @@
 package com.android.artt.mochaprofiles.utils
 
+import android.util.Log
 import com.android.artt.mochaprofiles.extensions.emptyString
 import com.android.artt.mochaprofiles.extensions.space
 import java.io.*
 
 class SU {
     companion object {
-        val instance by lazy { SU() }
+        private val TAG = "MochaProfiles"
+
+        val instance by lazy {
+            Log.d(TAG, "creating SU instance")
+            SU()
+        }
     }
     private lateinit var mProcess: Process
     private lateinit var mWriter: BufferedWriter
