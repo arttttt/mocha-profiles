@@ -11,13 +11,6 @@ class UndervoltTile : TileService() {
     val TAG = "MochaProfiles"
     private val mUndervoltManager by lazy { UndervoltManager(this) }
 
-    override fun onTileAdded() {
-        super.onTileAdded()
-        printDebugMessage("onTileAdded und")
-
-        setTileStatus()
-    }
-
     override fun onStartListening() {
         super.onStartListening()
         printDebugMessage("onStartListening und")

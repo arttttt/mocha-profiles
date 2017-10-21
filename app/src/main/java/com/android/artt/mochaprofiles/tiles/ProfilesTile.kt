@@ -21,11 +21,6 @@ class ProfilesTile : TileService() {
             ProfilesManager.MIDDLE_PROFILE to getString(R.string.middle_profile_text),
             ProfilesManager.HIGH_PROFILE to getString(R.string.high_profile_text)) }
 
-    override fun onTileAdded() {
-        super.onTileAdded()
-        printDebugMessage("onTileAdded")
-    }
-
     override fun onStartListening() {
         super.onStartListening()
         printDebugMessage("onStartListening")
