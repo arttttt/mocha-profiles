@@ -16,10 +16,7 @@ class ProfilesBootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action != Intent.ACTION_BOOT_COMPLETED)
             return
-        if (!SU.instance.getSuAccess() || !SU.instance.rootAccess()) {
-            showToast(context, R.string.no_root)
-            return
-        }
+        /*No need to check root cuz this functions will check it*/
         if (isValidKernel()) {
             with (ProfilesManager(context)) {
                 applyProfile(getSavedProfile())
@@ -30,7 +27,6 @@ class ProfilesBootReceiver : BroadcastReceiver() {
         } else {
             showToast(context, R.string.invalid_kernel)
         }
-        SU.instance.close()
     }
 
 
