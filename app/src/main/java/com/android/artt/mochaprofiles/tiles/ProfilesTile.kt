@@ -6,6 +6,7 @@ import android.service.quicksettings.TileService
 import android.util.Log
 import com.android.artt.mochaprofiles.R
 import com.android.artt.mochaprofiles.profiles.ProfilesManager
+import com.android.artt.mochaprofiles.utils.CommonUtils
 
 class ProfilesTile : TileService() {
 
@@ -57,8 +58,11 @@ class ProfilesTile : TileService() {
         with(qsTile) {
             icon = mIconsMap[profile]
             label = mLabelsMap[profile]
-            /* Restore the tile state */
-            state = Tile.STATE_ACTIVE
+            /* Disable tile if kernel is not valid or restore active state */
+            state = when (CommonUtils.instanse.isValidKernel) {
+                true -> Tile.STATE_ACTIVE
+                else -> Tile.STATE_UNAVAILABLE
+            }
             updateTile()
         }
     }

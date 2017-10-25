@@ -6,6 +6,7 @@ import android.service.quicksettings.TileService
 import android.util.Log
 import com.android.artt.mochaprofiles.R
 import com.android.artt.mochaprofiles.undervoltage.UndervoltageManager
+import com.android.artt.mochaprofiles.utils.CommonUtils
 
 class UndervoltageTile : TileService() {
     val TAG = "MochaProfiles"
@@ -30,7 +31,10 @@ class UndervoltageTile : TileService() {
 
     private fun setTileStatus() {
         with (qsTile) {
-            state = if (mUndervoltManager.isUndervoltingEnabled()) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
+            state = when (CommonUtils.instanse.isValidKernel) {
+                true -> if (mUndervoltManager.isUndervoltingEnabled()) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
+                else -> Tile.STATE_UNAVAILABLE
+            }
             this.updateTile()
         }
     }
