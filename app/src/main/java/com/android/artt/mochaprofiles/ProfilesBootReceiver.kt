@@ -6,18 +6,15 @@ import android.content.Intent
 import android.widget.Toast
 import com.android.artt.mochaprofiles.profiles.ProfilesManager
 import com.android.artt.mochaprofiles.undervoltage.UndervoltageManager
-import com.android.artt.mochaprofiles.utils.SU
+import com.android.artt.mochaprofiles.utils.CommonUtils
 
 class ProfilesBootReceiver : BroadcastReceiver() {
-
-    private val VALID_KERNEL_NAME = "smoker24.1"
-    private val KERNEL_VERSION_PATH = "/proc/version"
 
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action != Intent.ACTION_BOOT_COMPLETED)
             return
         /*No need to check root cuz this functions will check it*/
-        if (isValidKernel()) {
+        if (CommonUtils.instanse.isValidKernel) {
             with (ProfilesManager(context)) {
                 applyProfile(getSavedProfile())
             }
@@ -33,7 +30,4 @@ class ProfilesBootReceiver : BroadcastReceiver() {
     private fun showToast(context: Context, stringResourceId: Int) {
         Toast.makeText(context, stringResourceId, Toast.LENGTH_LONG).show()
     }
-
-    private fun isValidKernel(): Boolean =
-            SU.instance.readFile(KERNEL_VERSION_PATH).contains(VALID_KERNEL_NAME, true)
 }
