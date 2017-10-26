@@ -19,6 +19,12 @@ class ProfilesTile : TileService() {
     private val mLabelsMap by lazy { mapOf(ProfilesManager.LOW_PROFILE to getString(R.string.low_profile_text),
             ProfilesManager.MIDDLE_PROFILE to getString(R.string.middle_profile_text),
             ProfilesManager.HIGH_PROFILE to getString(R.string.high_profile_text)) }
+    private val mTileState by lazy {
+        when (CommonUtils.instanse.isValidKernel) {
+            true -> Tile.STATE_ACTIVE
+            else -> Tile.STATE_UNAVAILABLE
+        }
+    }
 
     override fun onTileAdded() {
         super.onTileAdded()
@@ -59,10 +65,7 @@ class ProfilesTile : TileService() {
             icon = mIconsMap[profile]
             label = mLabelsMap[profile]
             /* Disable tile if kernel is not valid or restore active state */
-            state = when (CommonUtils.instanse.isValidKernel) {
-                true -> Tile.STATE_ACTIVE
-                else -> Tile.STATE_UNAVAILABLE
-            }
+            state = mTileState
             updateTile()
         }
     }
