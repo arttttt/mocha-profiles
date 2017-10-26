@@ -2,7 +2,7 @@ package com.android.artt.mochaprofiles.utils
 
 class CommonUtils {
     companion object {
-        val instanse by lazy { CommonUtils() }
+        val instance by lazy { CommonUtils() }
     }
 
     private val VALID_KERNEL_NAME = "smoker24.1"

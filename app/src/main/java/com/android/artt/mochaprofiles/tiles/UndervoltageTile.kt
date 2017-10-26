@@ -15,7 +15,7 @@ class UndervoltageTile : TileService() {
             Tile.STATE_INACTIVE to Pair(Tile.STATE_ACTIVE, true)) }
     private val mTileIcon by lazy { Icon.createWithResource(this, R.drawable.ic_undervolting_tile) }
     private val mInitialTileState by lazy {
-        when (CommonUtils.instanse.isValidKernel) {
+        when (CommonUtils.instance.isValidKernel) {
             true -> if (mUndervoltManager.isUndervoltingEnabled()) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
             else -> Tile.STATE_UNAVAILABLE
         }

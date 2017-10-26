@@ -14,7 +14,7 @@ class ProfilesBootReceiver : BroadcastReceiver() {
         if (intent.action != Intent.ACTION_BOOT_COMPLETED)
             return
         /*No need to check root cuz this functions will check it*/
-        if (CommonUtils.instanse.isValidKernel) {
+        if (CommonUtils.instance.isValidKernel) {
             with (ProfilesManager(context)) {
                 applyProfile(getSavedProfile())
             }

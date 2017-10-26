@@ -20,7 +20,7 @@ class ProfilesTile : TileService() {
             ProfilesManager.MIDDLE_PROFILE to getString(R.string.middle_profile_text),
             ProfilesManager.HIGH_PROFILE to getString(R.string.high_profile_text)) }
     private val mTileState by lazy {
-        when (CommonUtils.instanse.isValidKernel) {
+        when (CommonUtils.instance.isValidKernel) {
             true -> Tile.STATE_ACTIVE
             else -> Tile.STATE_UNAVAILABLE
         }
