@@ -14,12 +14,6 @@ class UndervoltageTile : TileService() {
     private val mTileParams by lazy { mapOf(Tile.STATE_ACTIVE to Pair(Tile.STATE_INACTIVE, false),
             Tile.STATE_INACTIVE to Pair(Tile.STATE_ACTIVE, true)) }
     private val mTileIcon by lazy { Icon.createWithResource(this, R.drawable.ic_undervolting_tile) }
-    private val mInitialTileState by lazy {
-        when (CommonUtils.instance.isValidKernel) {
-            true -> if (mUndervoltManager.isUndervoltingEnabled()) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
-            else -> Tile.STATE_UNAVAILABLE
-        }
-    }
 
     override fun onStartListening() {
         super.onStartListening()
@@ -37,7 +31,10 @@ class UndervoltageTile : TileService() {
 
     private fun setTileStatus() {
         with (qsTile) {
-            state = mInitialTileState
+            state = when (CommonUtils.instance.isValidKernel) {
+                true -> if (mUndervoltManager.isUndervoltingEnabled()) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
+                else -> Tile.STATE_UNAVAILABLE
+            }
             this.updateTile()
         }
     }
