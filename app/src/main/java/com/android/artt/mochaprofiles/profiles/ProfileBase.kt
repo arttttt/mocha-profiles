@@ -1,3 +1,5 @@
+@file:Suppress("LeakingThis")
+
 package com.android.artt.mochaprofiles.profiles
 
 abstract class ProfileBase {
@@ -39,8 +41,6 @@ abstract class ProfileBase {
     val MIN_CPU_ONLINE =  "/sys/devices/system/cpu/cpuquiet/tegra_cpuquiet/custom_min_cpu_online"
 
     val commonParams: Map<String, String>
-    val profileGovernor: String
-        get() = governor
 
     protected val deadline: String
         get() = "deadline"
@@ -53,7 +53,8 @@ abstract class ProfileBase {
         get() = "interactive"
 
     init {
-        commonParams = mapOf(MAX_FREQ to scaling_max_freq,
+        commonParams = mapOf(SCALING_GOVERNOR to governor,
+                MAX_FREQ to scaling_max_freq,
                 MIN_FREQ to scaling_min_freq,
                 GPU_FLOOR_STATE to gpu_floor_state,
                 GPU_FLOOR_RATE to gpu_floor_rate,
@@ -67,7 +68,6 @@ abstract class ProfileBase {
                 CURRENT_POWER_PROFILE to current_power_profile,
                 INTERNAL_SCHEDULER to scheduler,
                 EXTERNAL_SCHEDULER to scheduler,
-                SCALING_GOVERNOR to governor,
                 MAX_CPU_ONLINE to max_cpu_online,
                 MIN_CPU_ONLINE to min_cpu_online)
     }
