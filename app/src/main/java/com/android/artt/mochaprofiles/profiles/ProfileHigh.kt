@@ -12,7 +12,7 @@ class ProfileHigh : ProfileBase(), ProfileBase.interactiveGovernor {
     override val gpu_cap_state: String
         get() = "1"
     override val gpu_cap_rate: String
-        get() = "1008000000"
+        get() = "852000000"
     override val boost_freq: String
         get() = "1044000"
     override val boost_time: String
