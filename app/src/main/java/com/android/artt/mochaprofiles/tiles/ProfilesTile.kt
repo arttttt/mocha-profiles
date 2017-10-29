@@ -30,7 +30,16 @@ class ProfilesTile : TileService() {
         super.onTileAdded()
         printDebugMessage("onTileAdded")
 
+        mProfileManager.mProfilesEnabled = true
         updateTile(mProfileManager.getSavedProfile())
+    }
+
+    override fun onTileRemoved() {
+        super.onTileRemoved()
+
+        printDebugMessage("onTileRemoved")
+
+        mProfileManager.mProfilesEnabled = false
     }
 
     override fun onStartListening() {

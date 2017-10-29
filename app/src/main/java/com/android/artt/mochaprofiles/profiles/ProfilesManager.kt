@@ -19,17 +19,31 @@ class ProfilesManager(context: Context) : ManagerBase(context) {
             get() = "video"
         val SUSPEND_PROFILE
             get() = "suspend"
-        val DEFAULT_PROFILE: String
+        val DEFAULT_PROFILE
             get() = MIDDLE_PROFILE
     }
 
     val TAG
         get() = "MochaProfiles"
 
-    override val PREFERENCES: String
+    override val PREFERENCES
         get() = "profiles_preferences"
     val PROFILE_KEY
         get() = "profile"
+    val PROFILES_ENABLED_KEY
+        get() = "profiles_enabled"
+
+    var mProfilesEnabled: Boolean
+        get() {
+            return mSharedPreferences.getBoolean(PROFILES_ENABLED_KEY, false)
+        }
+        @SuppressLint("CommitPrefEdits")
+        set(value) {
+            with(mSharedPreferences.edit()) {
+                putBoolean(PROFILES_ENABLED_KEY, value)
+                apply()
+            }
+        }
 
     private val mProfilesMap by lazy { mapOf(LOW_PROFILE to ProfileLow(),
             MIDDLE_PROFILE to ProfileMiddle(),
