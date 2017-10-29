@@ -30,8 +30,12 @@ class ProfilesTile : TileService() {
         super.onTileAdded()
         printDebugMessage("onTileAdded")
 
-        mProfileManager.mProfilesEnabled = true
-        updateTile(mProfileManager.getSavedProfile())
+        with(mProfileManager) {
+            val savedProfile = getSavedProfile()
+            applyProfile(savedProfile)
+            updateTile(savedProfile)
+            mProfilesEnabled = true
+        }
     }
 
     override fun onTileRemoved() {
