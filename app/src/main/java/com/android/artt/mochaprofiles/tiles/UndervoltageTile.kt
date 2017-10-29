@@ -15,6 +15,13 @@ class UndervoltageTile : TileService() {
             Tile.STATE_INACTIVE to Pair(Tile.STATE_ACTIVE, true)) }
     private val mTileIcon by lazy { Icon.createWithResource(this, R.drawable.ic_undervolting_tile) }
 
+    override fun onTileRemoved() {
+        super.onTileRemoved()
+        printDebugMessage("onTileRemoved undervoltage")
+
+        mUndervoltManager.enableUndervolting(false)
+    }
+
     override fun onStartListening() {
         super.onStartListening()
         printDebugMessage("onStartListening undervoltage")
