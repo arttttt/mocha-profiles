@@ -24,8 +24,6 @@ class ProfileSuspend : ProfileBase(), ProfileBase.smartmaxGovernor {
         get() = "252000"
     override val boost_cpus: String
         get() = "1"
-    override val current_power_profile: String
-        get() = "1"
     override val scheduler: String
         get() = noop
     override val governor: String

@@ -23,8 +23,6 @@ class ProfileMiddle : ProfileBase(), ProfileBase.smartmaxGovernor {
         get() = "252000"
     override val boost_cpus: String
         get() = "1"
-    override val current_power_profile: String
-        get() = "2"
     override val scheduler: String
         get() = deadline
     override val governor: String

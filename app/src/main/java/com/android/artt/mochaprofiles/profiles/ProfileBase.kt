@@ -15,7 +15,6 @@ abstract class ProfileBase {
     protected abstract val boost_emc: String
     protected abstract val boost_gpu: String
     protected abstract val boost_cpus: String
-    protected abstract val current_power_profile: String
     protected abstract val scheduler: String
     protected abstract val governor: String
     protected abstract val max_cpu_online: String
@@ -33,7 +32,6 @@ abstract class ProfileBase {
     val BOOST_EMC =  "/sys/module/input_cfboost/parameters/boost_emc"
     val BOOST_GPU =  "/sys/module/input_cfboost/parameters/boost_gpu"
     val BOOST_CPUS =  "/sys/module/input_cfboost/parameters/boost_cpus"
-    val CURRENT_POWER_PROFILE =  "/sys/devices/system/cpu/cpu0/cpufreq/current_power_profile"
     val INTERNAL_SCHEDULER =  "/sys/block/mmcblk0/queue/scheduler"
     val EXTERNAL_SCHEDULER =  "/sys/block/mmcblk1/queue/scheduler"
     val SCALING_GOVERNOR =  "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
@@ -65,7 +63,6 @@ abstract class ProfileBase {
                 BOOST_EMC to boost_emc,
                 BOOST_GPU to boost_gpu,
                 BOOST_CPUS to boost_cpus,
-                CURRENT_POWER_PROFILE to current_power_profile,
                 INTERNAL_SCHEDULER to scheduler,
                 EXTERNAL_SCHEDULER to scheduler,
                 MAX_CPU_ONLINE to max_cpu_online,
