@@ -15,8 +15,6 @@ class ProfilesManager(context: Context) : ManagerBase(context) {
             get() = "middle"
         val HIGH_PROFILE
             get() = "high"
-        val VIDEO_PROFILE
-            get() = "video"
         val SUSPEND_PROFILE
             get() = "suspend"
         val DEFAULT_PROFILE
@@ -48,7 +46,6 @@ class ProfilesManager(context: Context) : ManagerBase(context) {
     private val mProfilesMap by lazy { mapOf(LOW_PROFILE to ProfileLow(),
             MIDDLE_PROFILE to ProfileMiddle(),
             HIGH_PROFILE to ProfileHigh(),
-            VIDEO_PROFILE to ProfileVideo(),
             SUSPEND_PROFILE to ProfileSuspend()) }
 
     private fun setProfile(profile: String): Boolean {
