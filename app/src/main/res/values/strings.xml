@@ -1,4 +1,7 @@
 <resources>
+    <string name="alternative_profiles_key">alternative_profiles</string>
+    <string name="alternative_profiles_title">Alternative profiles</string>
+    <string name="alternative_profiles_summary">Use alternative profiles with intelliactive governor</string>
     <string name="app_name">MochaProfiles</string>
     <string name="failed_text">Can\'t apply profile</string>
     <string name="invalid_kernel">Unsupported kernel</string>
