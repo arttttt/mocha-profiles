@@ -42,9 +42,9 @@ class ProfilesManager {
             HIGH_PROFILE to ProfileHigh(),
             SUSPEND_PROFILE to ProfileSuspend()) }
 
-    private val mAltProfilesMap by lazy { mapOf(LOW_PROFILE_ALT to ProfileLowAlt(),
-            MIDDLE_PROFILE_ALT to ProfileMiddleAlt(),
-            HIGH_PROFILE_ALT to ProfileHighAlt()) }
+    private val mAltProfilesMap by lazy { mapOf(LOW_PROFILE to ProfileLowAlt(),
+            MIDDLE_PROFILE to ProfileMiddleAlt(),
+            HIGH_PROFILE to ProfileHighAlt()) }
 
     private fun setProfile(profile: String, useAltProfiles: Boolean) {
 

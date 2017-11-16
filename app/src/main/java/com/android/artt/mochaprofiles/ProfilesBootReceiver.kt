@@ -21,16 +21,12 @@ class ProfilesBootReceiver : BroadcastReceiver() {
         /*No needed to check root cuz this functions will check it*/
         if (CommonUtils.instance.isValidKernel) {
             val prefs = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE)
-            with (ProfilesManager.instance) {
-                if (prefs.getBoolean(Constants.PROFILES_ENABLED_KEY, false))
-                    applyProfile(prefs.getString(Constants.PROFILE_KEY, ProfilesManager.DEFAULT_PROFILE),
-                            prefs.getBoolean(Constants.PROFILES_ALTERNATIVE_KEY, false))
-                else
-                    Log.d(TAG, "profiles disabled")
-            }
-            with(UndervoltageManager.instance) {
-                enableUndervolting(prefs.getBoolean(Constants.UNDERVOLT_KEY, false))
-            }
+            if (prefs.getBoolean(Constants.PROFILES_ENABLED_KEY, false))
+                ProfilesManager.instance.applyProfile(prefs.getString(Constants.PROFILE_KEY, ProfilesManager.DEFAULT_PROFILE),
+                        prefs.getBoolean(Constants.PROFILES_ALTERNATIVE_KEY, false))
+            else
+                Log.d(TAG, "profiles disabled")
+            UndervoltageManager.instance.enableUndervolting(prefs.getBoolean(Constants.UNDERVOLT_KEY, false))
         } else {
             showToast(context, R.string.invalid_kernel)
         }
