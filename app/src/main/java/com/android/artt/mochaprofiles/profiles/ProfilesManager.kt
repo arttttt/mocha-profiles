@@ -2,9 +2,16 @@ package com.android.artt.mochaprofiles.profiles
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.util.Log
 import com.android.artt.mochaprofiles.base.ManagerBase
+import com.android.artt.mochaprofiles.base.ProfileBase
+import com.android.artt.mochaprofiles.profiles.classic.ProfileHigh
+import com.android.artt.mochaprofiles.profiles.classic.ProfileLow
+import com.android.artt.mochaprofiles.profiles.classic.ProfileMiddle
+import com.android.artt.mochaprofiles.profiles.alternative.ProfileHighAlt
+import com.android.artt.mochaprofiles.profiles.alternative.ProfileLowAlt
+import com.android.artt.mochaprofiles.profiles.alternative.ProfileMiddleAlt
+import com.android.artt.mochaprofiles.profiles.classic.ProfileSuspend
 import com.android.artt.mochaprofiles.utils.SU
 
 class ProfilesManager(context: Context) : ManagerBase(context) {
@@ -43,36 +50,57 @@ class ProfilesManager(context: Context) : ManagerBase(context) {
             }
         }
 
-    private val mProfilesMap by lazy { mapOf(LOW_PROFILE to ProfileLow(),
+    private val mAltProfilesMap by lazy { mapOf(LOW_PROFILE to ProfileLowAlt(),
+            MIDDLE_PROFILE to ProfileMiddleAlt(),
+            HIGH_PROFILE to ProfileHighAlt()) }
+
+    private val mClassicProfilesMap by lazy { mapOf(LOW_PROFILE to ProfileLow(),
             MIDDLE_PROFILE to ProfileMiddle(),
             HIGH_PROFILE to ProfileHigh(),
             SUSPEND_PROFILE to ProfileSuspend()) }
 
     private fun setProfile(profile: String): Boolean {
         var result = false
-        mProfilesMap[profile]?.let {
-            if (SU.instance.getSuAccess() && SU.instance.rootAccess()) {
-                it.commonParams.forEach { path, value ->
-                    SU.instance.writeFile(path, value)
-                }
 
-                when(it) {
-                    is ProfileBase.smartmaxGovernor -> {
-                        it.smartmaxParams.forEach { path, value ->
-                            SU.instance.writeFile(path, value)
+        if (!mSharedPreferences.getBoolean("alternative_profiles_key", false)) {
+            mClassicProfilesMap[profile]?.let {
+                if (SU.instance.getSuAccess() && SU.instance.rootAccess()) {
+                    it.commonParams.forEach { path, value ->
+                        SU.instance.writeFile(path, value)
+                    }
+                    when (it) {
+                        is ProfileBase.smartmaxGovernor -> {
+                            it.smartmaxParams.forEach { path, value ->
+                                SU.instance.writeFile(path, value)
+                            }
+                        }
+                        is ProfileBase.interactiveGovernor -> {
+                            it.interactiveParams.forEach { path, value ->
+                                SU.instance.writeFile(path, value)
+                            }
                         }
                     }
-                    is ProfileBase.interactiveGovernor -> {
-                        it.interactiveParams.forEach { path, value ->
-                            SU.instance.writeFile(path, value)
-                        }
+
+                    result = true
+                    Log.d(TAG, "applied profile: $profile")
+                    SU.instance.close()
+                }
+            }
+        } else {
+            mAltProfilesMap[profile]?.let {
+                if (SU.instance.getSuAccess() && SU.instance.rootAccess()) {
+                    (it as ProfileBase).commonParams.forEach { path, value ->
+                        SU.instance.writeFile(path, value)
+                    }
+                    (it as ProfileBase.intelliactiveGovernor).intelliactiveParams.forEach { path, value ->
+                        SU.instance.writeFile(path, value)
                     }
                 }
 
                 result = true
                 Log.d(TAG, "applied profile: $profile")
+                SU.instance.close()
             }
-            SU.instance.close()
         }
         return result
     }

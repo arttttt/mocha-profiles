@@ -1,4 +1,6 @@
-package com.android.artt.mochaprofiles.profiles
+package com.android.artt.mochaprofiles.profiles.classic
+
+import com.android.artt.mochaprofiles.base.ProfileBase
 
 class ProfileHigh : ProfileBase(), ProfileBase.interactiveGovernor {
     override val scaling_max_freq: String

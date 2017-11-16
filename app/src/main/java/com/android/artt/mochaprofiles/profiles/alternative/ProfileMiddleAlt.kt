@@ -1,6 +1,8 @@
-package com.android.artt.mochaprofiles.profiles
+package com.android.artt.mochaprofiles.profiles.alternative
 
-class ProfileMiddle : ProfileBase(), ProfileBase.smartmaxGovernor {
+import com.android.artt.mochaprofiles.base.ProfileBase
+
+class ProfileMiddleAlt : ProfileBase(), ProfileBase.intelliactiveGovernor {
     override val scaling_max_freq: String
         get() = "1530000"
     override val scaling_min_freq: String
@@ -26,17 +28,29 @@ class ProfileMiddle : ProfileBase(), ProfileBase.smartmaxGovernor {
     override val scheduler: String
         get() = deadline
     override val governor: String
-        get() = smartmax
+        get() = intelliactive
     override val max_cpu_online: String
         get() = "3"
     override val min_cpu_online: String
         get() = "2"
-    override val awake_ideal_freq: String
-        get() = "1044000"
-    override val smartmax_boost_freq: String
-        get() = "1326000"
-    override val touch_poke_freq: String
-        get() = "1326000"
-    override val input_boost_duration: String
+    override val min_sample_time: String
         get() = "60000"
+    override val timer_rate: String
+        get() = "30000"
+    override val sampling_down_factor: String
+        get() = "1"
+    override val above_hispeed_delay: String
+        get() = "30000 828000:20000"
+    override val io_is_busy: String
+        get() = "1"
+    override val sync_freq: String
+        get() = "696000"
+    override val up_threshold_any_cpu_load: String
+        get() = "75"
+    override val up_threshold_any_cpu_freq: String
+        get() = "1044000"
+    override val hispeed_freq: String
+        get() = "1224000"
+    override val target_loads: String
+        get() = "85"
 }

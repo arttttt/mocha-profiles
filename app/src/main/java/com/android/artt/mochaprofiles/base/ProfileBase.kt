@@ -1,6 +1,6 @@
 @file:Suppress("LeakingThis")
 
-package com.android.artt.mochaprofiles.profiles
+package com.android.artt.mochaprofiles.base
 
 abstract class ProfileBase {
     //common params
@@ -49,6 +49,8 @@ abstract class ProfileBase {
         get() = "smartmax"
     val interactive: String
         get() = "interactive"
+    val intelliactive: String
+        get() = "intelliactive"
 
     init {
         commonParams = mapOf(SCALING_GOVERNOR to governor,
@@ -135,5 +137,51 @@ abstract class ProfileBase {
                     IO_IS_BUSY to io_is_busy,
                     MIN_SAMPLE_TIME to min_sample_time,
                     ABOVE_HISPEED_DELAY to above_hispeed_delay)
+    }
+
+    interface intelliactiveGovernor {
+        val min_sample_time: String
+        val timer_rate: String
+        val sampling_down_factor: String
+        val above_hispeed_delay: String
+        val io_is_busy: String
+        val sync_freq: String
+        val up_threshold_any_cpu_load: String
+        val up_threshold_any_cpu_freq: String
+        val hispeed_freq: String
+        val target_loads: String
+
+        val MIN_SAMPLE_TIME
+            get() = "/sys/devices/system/cpu/cpufreq/intelliactive/min_sample_time"
+        val TIMER_RATE
+            get() = "/sys/devices/system/cpu/cpufreq/intelliactive/timer_rate"
+        val SAMPLING_DOWN_FACTOR
+            get() = "/sys/devices/system/cpu/cpufreq/intelliactive/sampling_down_factor"
+        val ABOVE_HISPEED_DELAY
+            get() = "/sys/devices/system/cpu/cpufreq/intelliactive/above_hispeed_delay"
+        val IO_IS_BUSY
+            get() = "/sys/devices/system/cpu/cpufreq/intelliactive/io_is_busy"
+        val SYNC_FREQ
+            get() = "/sys/devices/system/cpu/cpufreq/intelliactive/sync_freq"
+        val UP_THRESHOLD_ANY_CPU_LOAD
+            get() = "/sys/devices/system/cpu/cpufreq/intelliactive/up_threshold_any_cpu_load"
+        val UP_THRESHOLD_ANY_CPU_FREQ
+            get() = "/sys/devices/system/cpu/cpufreq/intelliactive/up_threshold_any_cpu_freq"
+        val HISPEED_FREQ
+            get() = "/sys/devices/system/cpu/cpufreq/intelliactive/hispeed_freq"
+        val TARGET_LOADS
+            get() = "/sys/devices/system/cpu/cpufreq/intelliactive/target_loads"
+
+        val intelliactiveParams: Map<String, String>
+            get() = mapOf(MIN_SAMPLE_TIME to min_sample_time,
+                    TIMER_RATE to timer_rate,
+                    SAMPLING_DOWN_FACTOR to sampling_down_factor,
+                    ABOVE_HISPEED_DELAY to above_hispeed_delay,
+                    IO_IS_BUSY to io_is_busy,
+                    SYNC_FREQ to sync_freq,
+                    UP_THRESHOLD_ANY_CPU_LOAD to up_threshold_any_cpu_load,
+                    UP_THRESHOLD_ANY_CPU_FREQ to up_threshold_any_cpu_freq,
+                    HISPEED_FREQ to hispeed_freq,
+                    TARGET_LOADS to target_loads)
     }
 }

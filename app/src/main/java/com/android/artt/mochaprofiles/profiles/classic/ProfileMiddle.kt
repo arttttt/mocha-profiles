@@ -1,11 +1,12 @@
-package com.android.artt.mochaprofiles.profiles
+package com.android.artt.mochaprofiles.profiles.classic
 
+import com.android.artt.mochaprofiles.base.ProfileBase
 
-class ProfileSuspend : ProfileBase(), ProfileBase.smartmaxGovernor {
+class ProfileMiddle : ProfileBase(), ProfileBase.smartmaxGovernor {
     override val scaling_max_freq: String
-        get() = "1044000"
+        get() = "1530000"
     override val scaling_min_freq: String
-        get() = "51000"
+        get() = "204000"
     override val gpu_floor_state: String
         get() = "1"
     override val gpu_floor_rate: String
@@ -13,9 +14,9 @@ class ProfileSuspend : ProfileBase(), ProfileBase.smartmaxGovernor {
     override val gpu_cap_state: String
         get() = "1"
     override val gpu_cap_rate: String
-        get() = "396000000"
+        get() = "540000000"
     override val boost_freq: String
-        get() = "1326000"
+        get() = "1044000"
     override val boost_time: String
         get() = "100"
     override val boost_emc: String
@@ -25,19 +26,19 @@ class ProfileSuspend : ProfileBase(), ProfileBase.smartmaxGovernor {
     override val boost_cpus: String
         get() = "1"
     override val scheduler: String
-        get() = noop
+        get() = deadline
     override val governor: String
         get() = smartmax
     override val max_cpu_online: String
-        get() = "2"
+        get() = "3"
     override val min_cpu_online: String
-        get() = "1"
+        get() = "2"
     override val awake_ideal_freq: String
-        get() = "564000"
+        get() = "1044000"
     override val smartmax_boost_freq: String
-        get() = "960000"
+        get() = "1326000"
     override val touch_poke_freq: String
-        get() = "828000"
+        get() = "1326000"
     override val input_boost_duration: String
         get() = "60000"
 }
