@@ -10,6 +10,9 @@
     <string name="low_profile_text">Energysaving</string>
     <string name="middle_profile_text">General</string>
     <string name="high_profile_text">Gaming</string>
+    <string name="low_profile_text_alt">Energysaving(A)</string>
+    <string name="middle_profile_text_alt">General(A)</string>
+    <string name="high_profile_text_alt">Gaming(A)</string>
     <string name="profiles_tile_def_label">Profiles</string>
     <string name="undervoltage_tile_label">Undervoltage</string>
 </resources>

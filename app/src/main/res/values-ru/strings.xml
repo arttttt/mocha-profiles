@@ -9,5 +9,8 @@
     <string name="low_profile_text">Сберегающий</string>
     <string name="middle_profile_text">Обычный</string>
     <string name="high_profile_text">Игровой</string>
+    <string name="low_profile_text_alt">Сберегающий(А)</string>
+    <string name="middle_profile_text_alt">Обычный(А)</string>
+    <string name="high_profile_text_alt">Игровой(А)</string>
     <string name="profiles_tile_def_label">Профили</string>
 </resources>

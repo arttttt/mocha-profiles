@@ -1,12 +1,12 @@
 package com.android.artt.mochaprofiles.undervoltage
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.util.Log
-import com.android.artt.mochaprofiles.base.ManagerBase
 import com.android.artt.mochaprofiles.utils.SU
 
-class UndervoltageManager(context: Context) : ManagerBase(context) {
+class UndervoltageManager {
+    companion object {
+        val instance by lazy { UndervoltageManager() }
+    }
     val TAG
         get() = "MochaProfiles"
 
@@ -18,21 +18,8 @@ class UndervoltageManager(context: Context) : ManagerBase(context) {
     private val reduceCpuVoltageValue = -80
     private val reduceGpuVoltageValue = -45
 
-    override val PREFERENCES
-        get() = "undervolt_preferences"
-    val UNDERVOLT_KEY
-        get() = "enabled"
-
-    @SuppressLint("CommitPrefEdits")
     fun enableUndervolting(enabled: Boolean) {
         if (SU.instance.getSuAccess() && SU.instance.rootAccess()) {
-            if (isUndervoltingEnabled() != enabled) {
-                with(mSharedPreferences.edit()) {
-                    putBoolean(UNDERVOLT_KEY, enabled)
-                    apply()
-                }
-            }
-
             val cpuVoltageDeviation = if (enabled) reduceCpuVoltageValue else 0
             val gpuVoltageDeviation = if (enabled) reduceGpuVoltageValue else 0
 
@@ -46,6 +33,4 @@ class UndervoltageManager(context: Context) : ManagerBase(context) {
             }
         }
     }
-
-    fun isUndervoltingEnabled(): Boolean = mSharedPreferences.getBoolean(UNDERVOLT_KEY, false)
 }

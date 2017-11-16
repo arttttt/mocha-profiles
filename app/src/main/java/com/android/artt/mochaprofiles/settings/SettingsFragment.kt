@@ -1,13 +1,12 @@
 package com.android.artt.mochaprofiles.settings
 
 import android.content.Context
-import android.os.AsyncTask
 import android.os.Bundle
 import android.preference.CheckBoxPreference
 import android.preference.Preference
 import android.preference.PreferenceFragment
-import android.util.Log
 import com.android.artt.mochaprofiles.R
+import com.android.artt.mochaprofiles.profiles.Constants
 import com.android.artt.mochaprofiles.profiles.ProfilesManager
 
 class SettingsFragment: PreferenceFragment(), Preference.OnPreferenceChangeListener {
@@ -16,10 +15,7 @@ class SettingsFragment: PreferenceFragment(), Preference.OnPreferenceChangeListe
         findPreference(getString(R.string.alternative_profiles_key)) as CheckBoxPreference
     }
 
-    private val mSharedPrefereces by lazy { context.getSharedPreferences( PREFERENCES, Context.MODE_PRIVATE) }
-
-    val PREFERENCES
-        get() = "profiles_preferences"
+    private val mSharedPreferences by lazy { context.getSharedPreferences( Constants.PREFERENCES, Context.MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,19 +27,14 @@ class SettingsFragment: PreferenceFragment(), Preference.OnPreferenceChangeListe
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean =
             when (preference) {
                 mProfilesCheckBox -> {
-                    mSharedPrefereces.edit().putBoolean("alternative_profiles_key", newValue as Boolean).apply()
-                    ApplyProfileAsync().execute(context)
+                    mSharedPreferences.edit().putBoolean(Constants.PROFILES_ALTERNATIVE_KEY, newValue as Boolean).apply()
+                    ProfilesManager.instance.applyProfile(getSavedProfile(), isAlternativeProfiles())
                     true
                 }
-                else -> true
+                else -> false
             }
 
-    private class ApplyProfileAsync: AsyncTask<Context, Any, Any>() {
-        override fun doInBackground(vararg params: Context) {
-            with (ProfilesManager(params[0])) {
-                applyProfile(getSavedProfile())
-                Log.d("MochaProfiles", "async completed")
-            }
-        }
-    }
+    private fun isAlternativeProfiles(): Boolean = mSharedPreferences.getBoolean(Constants.PROFILES_ALTERNATIVE_KEY, false)
+
+    private fun getSavedProfile(): String = mSharedPreferences.getString(Constants.PROFILE_KEY, ProfilesManager.DEFAULT_PROFILE)
 }
