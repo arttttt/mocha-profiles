@@ -53,4 +53,6 @@ class ProfileMiddleAlt : ProfileBase(), ProfileBase.intelliactiveGovernor {
         get() = "1224000"
     override val target_loads: String
         get() = "85"
+    override val cpuquiet_enable: String
+        get() = "0"
 }

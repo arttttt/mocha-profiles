@@ -11,15 +11,12 @@ import com.android.artt.mochaprofiles.profiles.alternative.ProfileMiddleAlt
 import com.android.artt.mochaprofiles.profiles.alternative.ProfileHighAlt
 import com.android.artt.mochaprofiles.utils.SU
 import org.jetbrains.anko.doAsync
+import java.io.File
+import java.io.FileFilter
+import java.util.regex.Pattern
 
 class ProfilesManager {
     companion object {
-        val LOW_PROFILE_ALT
-            get() = "low_alt"
-        val MIDDLE_PROFILE_ALT
-            get() = "middle_alt"
-        val HIGH_PROFILE_ALT
-            get() = "high_alt"
         val LOW_PROFILE
             get() = "low"
         val MIDDLE_PROFILE
@@ -37,6 +34,8 @@ class ProfilesManager {
     val TAG
         get() = "MochaProfiles"
 
+    private val CORE_ONLINE = "/sys/devices/system/cpu/cpu%d/online"
+
     private val mProfilesMap by lazy { mapOf(LOW_PROFILE to ProfileLow(),
             MIDDLE_PROFILE to ProfileMiddle(),
             HIGH_PROFILE to ProfileHigh(),
@@ -47,7 +46,6 @@ class ProfilesManager {
             HIGH_PROFILE to ProfileHighAlt()) }
 
     private fun setProfile(profile: String, useAltProfiles: Boolean) {
-
         if (useAltProfiles)
             mAltProfilesMap[profile]?.let {
                 if (SU.instance.getSuAccess() && SU.instance.rootAccess()) {
@@ -58,6 +56,7 @@ class ProfilesManager {
                         SU.instance.writeFile(path, value)
                     }
                 }
+                wakeAllCores()
 
                 Log.d(TAG, "applied profile: $profile")
                 SU.instance.close()
@@ -79,11 +78,6 @@ class ProfilesManager {
                                 SU.instance.writeFile(path, value)
                             }
                         }
-                        is ProfileBase.intelliactiveGovernor -> {
-                            it.intelliactiveParams.forEach { path, value ->
-                                SU.instance.writeFile(path, value)
-                            }
-                        }
                     }
 
                     Log.d(TAG, "applied profile: $profile")
@@ -93,8 +87,36 @@ class ProfilesManager {
     }
 
     fun applyProfile(profile: String, useAltProfiles: Boolean) {
-        doAsync {
             setProfile(profile, useAltProfiles)
+    }
+
+    private fun wakeAllCores() {
+        var x = 0
+        while (x < getCoresCount()) {
+            SU.instance.writeFile(String.format(CORE_ONLINE, x), 1)
+            ++x
         }
+    }
+
+    private fun getCoresCount(): Int {
+        var sLastCpuCoreCount = -1
+
+        try {
+            with(File("/sys/devices/system/cpu/")) {
+                val files = listFiles(FileFilter
+                { pathname ->
+                    if (Pattern.matches("cpu[0-9]", pathname.name)) {
+                        return@FileFilter true
+                    }
+                    false
+                })
+
+                sLastCpuCoreCount = files.size
+            }
+        } catch (e: Exception) {
+            sLastCpuCoreCount = Runtime.getRuntime().availableProcessors()
+        }
+
+        return sLastCpuCoreCount
     }
 }

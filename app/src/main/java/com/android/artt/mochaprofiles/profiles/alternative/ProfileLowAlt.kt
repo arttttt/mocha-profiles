@@ -53,4 +53,6 @@ class ProfileLowAlt : ProfileBase(), ProfileBase.intelliactiveGovernor {
         get() = "828000"
     override val target_loads: String
         get() = "95"
+    override val cpuquiet_enable: String
+        get() = "0"
 }

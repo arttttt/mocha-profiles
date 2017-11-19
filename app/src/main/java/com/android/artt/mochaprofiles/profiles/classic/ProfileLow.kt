@@ -41,4 +41,6 @@ class ProfileLow : ProfileBase(), ProfileBase.smartmaxGovernor {
         get() = "696000"
     override val input_boost_duration: String
         get() = "40000"
+    override val cpuquiet_enable: String
+        get() = "1"
 }

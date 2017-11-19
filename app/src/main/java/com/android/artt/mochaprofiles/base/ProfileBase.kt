@@ -19,6 +19,7 @@ abstract class ProfileBase {
     protected abstract val governor: String
     protected abstract val max_cpu_online: String
     protected abstract val min_cpu_online: String
+    protected abstract val cpuquiet_enable: String
 
     //common params
     val MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
@@ -37,6 +38,7 @@ abstract class ProfileBase {
     val SCALING_GOVERNOR =  "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
     val MAX_CPU_ONLINE =  "/sys/devices/system/cpu/cpuquiet/tegra_cpuquiet/custom_max_cpu_online"
     val MIN_CPU_ONLINE =  "/sys/devices/system/cpu/cpuquiet/tegra_cpuquiet/custom_min_cpu_online"
+    val CPUQUIET_ENABLE = "/sys/devices/system/cpu/cpuquiet/tegra_cpuquiet/enable"
 
     val commonParams: Map<String, String>
 
@@ -68,7 +70,8 @@ abstract class ProfileBase {
                 INTERNAL_SCHEDULER to scheduler,
                 EXTERNAL_SCHEDULER to scheduler,
                 MAX_CPU_ONLINE to max_cpu_online,
-                MIN_CPU_ONLINE to min_cpu_online)
+                MIN_CPU_ONLINE to min_cpu_online,
+                CPUQUIET_ENABLE to cpuquiet_enable)
     }
 
     interface smartmaxGovernor {

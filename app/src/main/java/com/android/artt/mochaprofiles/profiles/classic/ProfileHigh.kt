@@ -51,4 +51,6 @@ class ProfileHigh : ProfileBase(), ProfileBase.interactiveGovernor {
         get() = "60000"
     override val above_hispeed_delay: String
         get() = "10000 204000:5000 696000:10000"
+    override val cpuquiet_enable: String
+        get() = "1"
 }
