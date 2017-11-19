@@ -10,7 +10,6 @@ import com.android.artt.mochaprofiles.profiles.alternative.ProfileLowAlt
 import com.android.artt.mochaprofiles.profiles.alternative.ProfileMiddleAlt
 import com.android.artt.mochaprofiles.profiles.alternative.ProfileHighAlt
 import com.android.artt.mochaprofiles.utils.SU
-import org.jetbrains.anko.doAsync
 import java.io.File
 import java.io.FileFilter
 import java.util.regex.Pattern

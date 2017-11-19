@@ -28,13 +28,11 @@ class SettingsFragment: PreferenceFragment(), Preference.OnPreferenceChangeListe
             when (preference) {
                 mProfilesCheckBox -> {
                     mSharedPreferences.edit().putBoolean(Constants.PROFILES_ALTERNATIVE_KEY, newValue as Boolean).apply()
-                    ProfilesManager.instance.applyProfile(getSavedProfile(), isAlternativeProfiles())
+                    ProfilesManager.instance.applyProfile(getSavedProfile(), newValue)
                     true
                 }
                 else -> false
             }
-
-    private fun isAlternativeProfiles(): Boolean = mSharedPreferences.getBoolean(Constants.PROFILES_ALTERNATIVE_KEY, false)
 
     private fun getSavedProfile(): String = mSharedPreferences.getString(Constants.PROFILE_KEY, ProfilesManager.DEFAULT_PROFILE)
 }
